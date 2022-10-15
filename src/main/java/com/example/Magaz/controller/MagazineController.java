@@ -24,12 +24,13 @@ public class MagazineController {
 
     @GetMapping("{id}")
     public ResponseEntity<Magazine> getById(@PathVariable UUID id) {
+        Magazine magazine;
         try {
-            Magazine magazine = magazineRepository.findById(id).get();
+            magazine = magazineRepository.findById(id).get();
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(magazineRepository.findById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(magazine, HttpStatus.OK);
     }
 
     @PostMapping
