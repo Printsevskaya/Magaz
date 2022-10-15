@@ -40,7 +40,18 @@ public class ProductController {
         return new ResponseEntity<>(productRepository.save(jsonFile), HttpStatus.CREATED);
     }
 
-
+    @PatchMapping("{id}")
+    public ResponseEntity<Product> putchProduct(@PathVariable UUID id, @RequestBody String nameProduct){
+        Product product;
+        try{
+            product = productRepository.findById(id).get();
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        product.setNameProduct(nameProduct);
+        return new ResponseEntity<>(productRepository.save(product), HttpStatus.OK);
+    }
 
 
 
